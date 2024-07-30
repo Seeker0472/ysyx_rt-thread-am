@@ -37,7 +37,8 @@ static int _uart_putc(struct rt_serial_device *serial, char c) {
 }
 
 static int _uart_getc(struct rt_serial_device *serial) {
-  static const char *p = "help\ndate\nversion\nfree\nps\npwd\nls\nmemtrace\nmemcheck\nutest_list\n";
+  static const char *p = "help\ndate\nversion\nfree\nps\npa\npwd\nls\nmemtrace\nmemcheck\nutest_list\nversion\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbadapple\n";
+  // static const char *p = "help\ndate\nversion\nfree\nps\npa\npwd\nls\nmemtrace\nmemcheck\nutest_list\nversion\n";
   return (*p != '\0' ? *(p ++) : -1);
 }
 

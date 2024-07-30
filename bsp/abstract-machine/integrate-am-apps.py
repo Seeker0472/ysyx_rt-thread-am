@@ -8,6 +8,7 @@ AM_HOME = Path(os.environ["AM_HOME"])
 AM_KERNELS_HOME = (AM_HOME / ".." / "am-kernels").resolve()
 app_dir_list = [
   AM_KERNELS_HOME / "kernels" / "hello",
+  AM_KERNELS_HOME / "kernels" / "bad-apple",
   AM_KERNELS_HOME / "benchmarks" / "microbench",
   AM_KERNELS_HOME / "kernels" / "typing-game",
   AM_KERNELS_HOME / "kernels" / "snake",
@@ -64,6 +65,7 @@ def integrate(app_dir):
             redefine_sym_fp.write(f"__am_{app_name}_{f} {f}\n")
     redefine_sym_fp.close()
     for obj in objs:
+        print("app_name:",app_name)
         os.system(f"{CROSS_COMPILE}objcopy --prefix-symbols=__am_{app_name}_ --set-section-flags .text*=readonly,noload --set-section-flags .*rodata*=readonly,noload {str(obj)}")
         os.system(f"{CROSS_COMPILE}objcopy --redefine-syms=redefine_sym.txt --prefix-alloc-sections=__am_apps {str(obj)}")
         os.system(f"{CROSS_COMPILE}objcopy --set-section-flags .text*=readonly,code,alloc --set-section-flags .*rodata*=readonly,data,alloc {str(obj)}")

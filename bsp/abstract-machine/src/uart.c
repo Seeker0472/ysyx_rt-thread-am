@@ -35,11 +35,15 @@ static int _uart_putc(struct rt_serial_device *serial, char c) {
   putch(c);
   return 1;
 }
+# define SERIAL_PORT     0x10000000L
+static inline uint8_t  inb(uintptr_t addr) { return *(volatile uint8_t  *)addr; }
 
 static int _uart_getc(struct rt_serial_device *serial) {
-  static const char *p = "help\ndate\nversion\nfree\nps\npa\npwd\nls\nmemtrace\nmemcheck\nutest_list\nversion\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbadapple\n";
-  // static const char *p = "help\ndate\nversion\nfree\nps\npa\npwd\nls\nmemtrace\nmemcheck\nutest_list\nversion\n";
-  return (*p != '\0' ? *(p ++) : -1);
+  // static const char *p = "help\ndate\nversion\nfree\nps\npa\npwd\nls\nmemtrace\nmemcheck\nutest_list\nversion\nhello\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbadapple\n";
+  // static const char *p = "hello_am\nfceux_am\n";
+  // return (*p != '\0' ? *(p ++) : -1);
+  bool have_code = (inb(SERIAL_PORT + 5) & 0x1) == 1;
+  return have_code ? inb(SERIAL_PORT) : 0xff;
 }
 
 const struct rt_uart_ops _uart_ops = {

@@ -68,7 +68,7 @@ void rt_hw_context_switch(rt_ubase_t from, rt_ubase_t to) {
 }
 //Ignore_temporarily
 void rt_hw_context_switch_interrupt(void *context, rt_ubase_t from, rt_ubase_t to, struct rt_thread *to_thread) {
-  // assert(0);
+  assert(0);
 }
 
 void wrap(void *arg) {

@@ -7,8 +7,14 @@ RTCONFIG_H = rtconfig.h
 NAME = rtthread
 SRCS = $(shell find src -name "*.c")
 CFLAGS += -DHAVE_CCONFIG_H -D__RTTHREAD__
+CFLAGS += -I$(shell pwd)
 CFLAGS += -Wno-nonnull-compare
-# LDFLAGS += -T extra.ld
+
+LAST_ARCH := $(shell echo $(ARCH)| tail -c 5)
+
+ifeq ($(LAST_ARCH), nemu)
+LDFLAGS += -T extra.ld
+endif
 -include $(FILE_MK)
 -include $(AM_APPS_MK)
 include $(AM_HOME)/Makefile
